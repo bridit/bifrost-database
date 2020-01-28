@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cfb31642bc35fa875d3c8b6b8071a3a6",
+    "content-hash": "50c1a231ba28653a56f960faadaa78d2",
     "packages": [
         {
             "name": "doctrine/inflector",
@@ -75,7 +75,7 @@
         },
         {
             "name": "illuminate/container",
-            "version": "v6.12.0",
+            "version": "v6.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/container.git",
@@ -119,7 +119,7 @@
         },
         {
             "name": "illuminate/contracts",
-            "version": "v6.12.0",
+            "version": "v6.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/contracts.git",
@@ -163,16 +163,16 @@
         },
         {
             "name": "illuminate/database",
-            "version": "v6.12.0",
+            "version": "v6.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/database.git",
-                "reference": "265b9b6849b517ef65bef1cb75b537fbff4a1734"
+                "reference": "e5d520264cc2c79b0347d166221e669b45d425ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/database/zipball/265b9b6849b517ef65bef1cb75b537fbff4a1734",
-                "reference": "265b9b6849b517ef65bef1cb75b537fbff4a1734",
+                "url": "https://api.github.com/repos/illuminate/database/zipball/e5d520264cc2c79b0347d166221e669b45d425ff",
+                "reference": "e5d520264cc2c79b0347d166221e669b45d425ff",
                 "shasum": ""
             },
             "require": {
@@ -219,20 +219,20 @@
                 "orm",
                 "sql"
             ],
-            "time": "2020-01-20T15:57:38+00:00"
+            "time": "2020-01-28T14:38:33+00:00"
         },
         {
             "name": "illuminate/support",
-            "version": "v6.12.0",
+            "version": "v6.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "0c6bf7cd56a63e46358e6443f90293e429546bc8"
+                "reference": "c6bcd329fd8c7c46908f1af7f99dae164a4065a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/0c6bf7cd56a63e46358e6443f90293e429546bc8",
-                "reference": "0c6bf7cd56a63e46358e6443f90293e429546bc8",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/c6bcd329fd8c7c46908f1af7f99dae164a4065a1",
+                "reference": "c6bcd329fd8c7c46908f1af7f99dae164a4065a1",
                 "shasum": ""
             },
             "require": {
@@ -280,7 +280,7 @@
             ],
             "description": "The Illuminate Support package.",
             "homepage": "https://laravel.com",
-            "time": "2020-01-21T13:52:46+00:00"
+            "time": "2020-01-28T14:36:33+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -583,25 +583,25 @@
         },
         {
             "name": "symfony/options-resolver",
-            "version": "v4.4.3",
+            "version": "v5.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/options-resolver.git",
-                "reference": "9a02d6662660fe7bfadad63b5f0b0718d4c8b6b0"
+                "reference": "b1ab86ce52b0c0abe031367a173005a025e30e04"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/options-resolver/zipball/9a02d6662660fe7bfadad63b5f0b0718d4c8b6b0",
-                "reference": "9a02d6662660fe7bfadad63b5f0b0718d4c8b6b0",
+                "url": "https://api.github.com/repos/symfony/options-resolver/zipball/b1ab86ce52b0c0abe031367a173005a025e30e04",
+                "reference": "b1ab86ce52b0c0abe031367a173005a025e30e04",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1.3"
+                "php": "^7.2.5"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.4-dev"
+                    "dev-master": "5.0-dev"
                 }
             },
             "autoload": {
@@ -633,7 +633,7 @@
                 "configuration",
                 "options"
             ],
-            "time": "2020-01-04T13:00:46+00:00"
+            "time": "2020-01-04T14:08:26+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
