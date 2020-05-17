@@ -7,7 +7,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 trait HasAttributesResolver
 {
 
-  use AttributesResolverDefaults, HasStates, HasHashes, HasEncryption;
+  use AttributesResolverDefaults;
 
   /**
    * Options Resolver instance
@@ -24,7 +24,7 @@ trait HasAttributesResolver
   {
     $class = get_class($this);
 
-    if (!isset(self::$optionsResolvers[$class])) {
+    if (isset(self::$optionsResolvers[$class])) {
       self::$optionsResolvers[$class] = new OptionsResolver();
       $this->configureAttributesOptions(self::$optionsResolvers[$class]);
     }
@@ -172,11 +172,12 @@ trait HasAttributesResolver
    */
   protected function resolve()
   {
-    $options = self::$optionsResolvers[get_class($this)]->resolve($this->attributes);
+    if (isset(self::$optionsResolvers[get_class($this)])) {
+      $options = self::$optionsResolvers[get_class($this)]->resolve($this->attributes);
+      $this->attributes = array_merge($this->attributes, $options);
+    }
 
     $this->checkStatesTransition();
-
-    $this->attributes = array_merge($this->attributes, $options);
   }
 
 }
