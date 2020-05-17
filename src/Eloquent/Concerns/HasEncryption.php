@@ -31,11 +31,13 @@ trait HasEncryption
    */
   protected function encryptAttribute(string $key): void
   {
-    if ($key === null || !$this->hasEncryptionBehaviour($key) || Encrypter::isEncrypted($this->attributes[$key])) {
+    $value = is_array($this->attributes[$key]) ? json_encode($this->attributes[$key]) : $this->attributes[$key];
+
+    if ($key === null || !$this->hasEncryptionBehaviour($key) || Encrypter::isEncrypted($value)) {
       return;
     }
 
-    $this->attributes[$key] = Encrypter::encrypt($this->attributes[$key]);
+    $this->attributes[$key] = Encrypter::encrypt($value);
   }
 
   /**
@@ -59,11 +61,21 @@ trait HasEncryption
    */
   protected function decryptValue($value)
   {
-    if (Encrypter::isEncrypted($value)) {
-      return Encrypter::decrypt($value);
+    if (!Encrypter::isEncrypted($value)) {
+      return $value;
     }
 
-    return $value;
+    $value = Encrypter::decrypt($value);
+
+    if (is_numeric($value)) {
+      return $value;
+    }
+
+    if ($value == json_decode($value, true)) {
+      return $value;
+    }
+
+    return json_decode($value, true);
   }
 
 }
