@@ -2,13 +2,21 @@
 
 namespace Bifrost\Database\Eloquent;
 
+use Throwable;
+use Illuminate\Support\Arr;
+use UnexpectedValueException;
+use Illuminate\Database\Eloquent\Builder;
+use Bifrost\Database\Eloquent\Concerns\HasHashes;
+use Bifrost\Database\Eloquent\Concerns\HasStates;
 use Illuminate\Database\Eloquent\Model as BaseModel;
+use Bifrost\Database\Eloquent\Concerns\HasEncryption;
+use Spatie\SchemalessAttributes\SchemalessAttributes;
 use Bifrost\Database\Eloquent\Concerns\HasAttributesResolver;
 
 class Model extends BaseModel
 {
 
-  use HasAttributesResolver;
+  use HasHashes, HasEncryption, HasStates, HasAttributesResolver;
 
   /**
    * Indicates when model key is UUID.
@@ -16,6 +24,13 @@ class Model extends BaseModel
    * @var bool
    */
   protected bool $uuidPrimaryKey = true;
+
+  /**
+   * Model schemaless attributes.
+   *
+   * @var array
+   */
+  protected array $schemalessAttributes = [];
 
   /**
    * Model attributes map.
@@ -67,15 +82,45 @@ class Model extends BaseModel
   }
 
   /**
+   * Get all of the current attributes on the model.
+   *
+   * @return array
+   */
+  public function getAttributes()
+  {
+    parent::getAttributes();
+
+    $this->mergeAttributesFromSchemaless();
+
+    return $this->attributes;
+  }
+
+  /**
+   * Merge schemaless attributes into the model.
+   *
+   * @return void
+   */
+  protected function mergeAttributesFromSchemaless()
+  {
+    foreach ($this->schemalessAttributes as $attribute) {
+      $this->attributes[$attribute] ??= null;
+    }
+  }
+
+  /**
    * @inheritdoc
    */
   public function getAttributeValue($key)
   {
-    if (!$this->hasEncryptionBehaviour($key)) {
-      return parent::getAttributeValue($key);
+    if ($this->hasEncryptionBehaviour($key)) {
+      return $this->decryptValue(parent::getAttributeValue($key));
     }
 
-    return $this->decryptValue(parent::getAttributeValue($key));
+    if (in_array($key, $this->schemalessAttributes)) {
+      return SchemalessAttributes::createForModel($this, $key);
+    }
+
+    return parent::getAttributeValue($key);
   }
 
   /**
@@ -100,4 +145,42 @@ class Model extends BaseModel
     return $this;
   }
 
+  /**
+   * Scope a query to apply json conditions.
+   *
+   * @param Builder $builder
+   * @param mixed ...$arguments
+   * @return Builder
+   * @throws Throwable
+   */
+  public function scopeWithJson($builder, ...$arguments): Builder
+  {
+    $schemalessAttributes = [];
+    $attributeName = Arr::first($this->schemalessAttributes) ?? 'json_data';
+
+    if (count($arguments) === 0) {
+      return $builder->whereNotNull($attributeName);
+    }
+
+    if (count($arguments) === 1) {
+      [$schemalessAttributes] = $arguments;
+      throw_if(!is_array($schemalessAttributes), new UnexpectedValueException('Array of conditions expected.'));
+    }
+
+    if (count($arguments) === 2) {
+      [$name, $value] = $arguments;
+      $schemalessAttributes = [$name => $value];
+    }
+
+    if (count($arguments) >= 3) {
+      [$attributeName, $name, $value] = $arguments;
+      $schemalessAttributes = [$name => $value];
+    }
+
+    foreach ($schemalessAttributes as $name => $value) {
+      $builder->where(str_replace('.', '->', "{$attributeName}->{$name}"), $value);
+    }
+
+    return $builder;
+  }
 }
