@@ -4,6 +4,7 @@ namespace Bifrost\Database\Eloquent\Concerns;
 
 use Throwable;
 use Illuminate\Support\Arr;
+use UnexpectedValueException;
 use Illuminate\Database\Eloquent\Builder;
 use Spatie\SchemalessAttributes\SchemalessAttributes;
 

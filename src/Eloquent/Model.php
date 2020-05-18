@@ -2,17 +2,19 @@
 
 namespace Bifrost\Database\Eloquent;
 
+use Throwable;
 use Bifrost\Database\Eloquent\Concerns\HasHashes;
 use Bifrost\Database\Eloquent\Concerns\HasStates;
 use Illuminate\Database\Eloquent\Model as BaseModel;
 use Bifrost\Database\Eloquent\Concerns\HasSchemaless;
 use Bifrost\Database\Eloquent\Concerns\HasEncryption;
+use Bifrost\Database\Eloquent\Concerns\HasTranslations;
 use Bifrost\Database\Eloquent\Concerns\HasAttributesResolver;
 
 class Model extends BaseModel
 {
 
-  use HasHashes, HasEncryption, HasSchemaless, HasStates, HasAttributesResolver;
+  use HasHashes, HasEncryption, HasSchemaless, HasTranslations, HasStates, HasAttributesResolver;
 
   /**
    * Indicates when model key is UUID.
@@ -109,18 +111,27 @@ class Model extends BaseModel
       return $this->getSchemalessAttribute($key);
     }
 
+    if ($this->hasTranslatableBehaviour($key)) {
+      return $this->getTranslation($key);
+    }
+
     return parent::getAttributeValue($key);
   }
 
   /**
    * Set a given attribute on the model.
    *
-   * @param  string  $key
-   * @param  mixed  $value
+   * @param string $key
+   * @param mixed $value
    * @return mixed
+   * @throws Throwable
    */
   public function setAttribute($key, $value)
   {
+    if ($this->hasTranslatableBehaviour($key)) {
+      return is_array($value) ? $this->setTranslations($key, $value) : $this->setTranslation($key, $value);
+    }
+
     parent::setAttribute($key, $value);
 
     if ($value !== null && $this->hasHashingBehaviour($key)) {
