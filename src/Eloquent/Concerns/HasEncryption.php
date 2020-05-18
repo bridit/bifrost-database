@@ -65,17 +65,7 @@ trait HasEncryption
       return $value;
     }
 
-    $value = Encrypter::decrypt($value);
-
-    if (is_numeric($value)) {
-      return $value;
-    }
-
-    if ($value == json_decode($value, true)) {
-      return $value;
-    }
-
-    return json_decode($value, true);
+    return Encrypter::decrypt($value);
   }
 
 }
