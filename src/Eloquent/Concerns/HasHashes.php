@@ -8,11 +8,6 @@ trait HasHashes
 {
 
   /**
-   * @var array
-   */
-  protected array $hashed = [];
-
-  /**
    * Check if hashing can be done.
    *
    * @param string $key

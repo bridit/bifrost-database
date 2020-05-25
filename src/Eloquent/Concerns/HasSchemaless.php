@@ -11,13 +11,6 @@ use Spatie\SchemalessAttributes\SchemalessAttributes;
 trait HasSchemaless
 {
 
-  /**
-   * Model schemaless attributes.
-   *
-   * @var array
-   */
-  protected array $schemalessAttributes = [];
-
   protected function hasSchemalessBehaviour(string $key): bool
   {
     return in_array($key, $this->schemalessAttributes);

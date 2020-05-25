@@ -8,11 +8,6 @@ trait HasStates
 {
 
   /**
-   * @var array
-   */
-  protected array $statesAttributes = [];
-
-  /**
    * Check if states can be handle.
    *
    * @param string $key

@@ -8,11 +8,6 @@ trait HasEncryption
 {
 
   /**
-   * @var array
-   */
-  protected array $encrypted = [];
-
-  /**
    * Check if encryption can be done.
    *
    * @param string $key

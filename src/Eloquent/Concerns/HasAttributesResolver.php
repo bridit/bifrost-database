@@ -24,9 +24,9 @@ trait HasAttributesResolver
   {
     $class = get_class($this);
 
-    if (isset(self::$optionsResolvers[$class])) {
-      self::$optionsResolvers[$class] = new OptionsResolver();
-      $this->configureAttributesOptions(self::$optionsResolvers[$class]);
+    if (isset(static::$optionsResolvers[$class])) {
+      static::$optionsResolvers[$class] = new OptionsResolver();
+      $this->configureAttributesOptions(static::$optionsResolvers[$class]);
     }
   }
 
@@ -172,8 +172,8 @@ trait HasAttributesResolver
    */
   protected function resolve()
   {
-    if (isset(self::$optionsResolvers[get_class($this)])) {
-      $options = self::$optionsResolvers[get_class($this)]->resolve($this->attributes);
+    if (isset(static::$optionsResolvers[get_class($this)])) {
+      $options = static::$optionsResolvers[get_class($this)]->resolve($this->attributes);
       $this->attributes = array_merge($this->attributes, $options);
     }
 

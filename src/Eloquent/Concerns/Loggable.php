@@ -11,21 +11,6 @@ trait Loggable
 {
 
   /**
-   * @var bool
-   */
-  public bool $loggable = true;
-
-  /**
-   * @var null|string
-   */
-  protected ?string $logConnection = null;
-
-  /**
-   * @var null|string
-   */
-  protected ?string $logTable = null;
-
-  /**
    * Create the event listeners for created, updated and deleted events
    */
   public static function bootLoggable()

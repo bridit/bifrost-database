@@ -13,13 +13,6 @@ trait HasTranslations
 {
 
   /**
-   * Model translatable attributes.
-   *
-   * @var array
-   */
-  protected array $translatableAttributes = [];
-
-  /**
    * @param string $key
    * @return bool
    */
@@ -108,7 +101,7 @@ trait HasTranslations
    * @return $this
    * @throws Throwable
    */
-  public function setTranslation(string $key, string $value, ?string $locale = null): self
+  public function setTranslation(string $key, string $value, ?string $locale = null)
   {
     $this->guardTranslatableBehaviour($key);
 
@@ -128,7 +121,7 @@ trait HasTranslations
    * @return $this
    * @throws Throwable
    */
-  public function setTranslations(string $key, array $translations): self
+  public function setTranslations(string $key, array $translations)
   {
     $this->guardTranslatableBehaviour($key);
 
@@ -145,7 +138,7 @@ trait HasTranslations
    * @return $this
    * @throws Throwable
    */
-  public function forgetTranslation(string $key, ?string $locale = null): self
+  public function forgetTranslation(string $key, ?string $locale = null)
   {
     $this->guardTranslatableBehaviour($key);
 
@@ -170,7 +163,7 @@ trait HasTranslations
    * @return $this
    * @throws Throwable
    */
-  public function forgetTranslations(string $key, array $locales): self
+  public function forgetTranslations(string $key, array $locales)
   {
     $this->guardTranslatableBehaviour($key);
 
