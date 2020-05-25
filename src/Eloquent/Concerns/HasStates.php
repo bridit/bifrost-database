@@ -35,7 +35,7 @@ trait HasStates
    */
   protected function checkStatesTransition(): void
   {
-    foreach ($this->statesAttributes as $attributeName)
+    foreach ($this->statesAttributes ?? [] as $attributeName)
     {
       $current = data_get($this->original, $attributeName, 'none');
       $new = $this->attributes[$attributeName];
