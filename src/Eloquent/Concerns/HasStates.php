@@ -15,7 +15,7 @@ trait HasStates
    */
   protected function hasStateBehaviour(string $key): bool
   {
-    return in_array($key, $this->statesAttributes) && array_key_exists($key, $this->attributes);
+    return in_array($key, $this->statesAttributes ?? []) && array_key_exists($key, $this->attributes);
   }
 
   /**

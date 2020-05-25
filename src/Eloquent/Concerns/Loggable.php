@@ -34,7 +34,7 @@ trait Loggable
    */
   public function createLogRegistry(string $action): void
   {
-    if ($this->loggable === false) {
+    if ($this->loggable !== true) {
       return;
     }
 

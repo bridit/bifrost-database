@@ -13,7 +13,7 @@ trait HasSchemaless
 
   protected function hasSchemalessBehaviour(string $key): bool
   {
-    return in_array($key, $this->schemalessAttributes);
+    return in_array($key, $this->schemalessAttributes ?? []);
   }
 
   /**

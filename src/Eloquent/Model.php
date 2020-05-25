@@ -93,7 +93,7 @@ class Model extends BaseModel
    */
   protected function mergeAttributesFromSchemaless()
   {
-    foreach ($this->schemalessAttributes as $attribute) {
+    foreach ($this->schemalessAttributes ?? [] as $attribute) {
       $this->attributes[$attribute] ??= null;
     }
   }

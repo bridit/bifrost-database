@@ -18,7 +18,7 @@ trait HasTranslations
    */
   public function hasTranslatableBehaviour(string $key): bool
   {
-    return in_array($key, $this->translatableAttributes);
+    return in_array($key, $this->translatableAttributes ?? []);
   }
 
   /**
