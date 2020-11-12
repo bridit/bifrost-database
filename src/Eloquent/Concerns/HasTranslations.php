@@ -35,7 +35,7 @@ trait HasTranslations
    * @param string|null $locale
    * @return string
    */
-  protected function getLocale(?string $locale = null): string
+  protected function getTranslationLocale(?string $locale = null): string
   {
     return $locale ?? Config::get('app.locale');
   }
@@ -62,7 +62,7 @@ trait HasTranslations
    */
   public function hasTranslation(string $key, ?string $locale = null): bool
   {
-    return isset($this->getTranslations($key)[$this->getLocale($locale)]);
+    return isset($this->getTranslations($key)[$this->getTranslationLocale($locale)]);
   }
 
   /**
@@ -89,7 +89,7 @@ trait HasTranslations
     $translations = $this->getTranslations($key);
     $fallbackLocale = Config::get('app.fallback_locale');
 
-    return Arr::get($translations, $this->getLocale($locale), Arr::get($translations, $fallbackLocale));
+    return Arr::get($translations, $this->getTranslationLocale($locale), Arr::get($translations, $fallbackLocale));
   }
 
   /**
@@ -106,7 +106,7 @@ trait HasTranslations
     $this->guardTranslatableBehaviour($key);
 
     $translations = $this->getTranslations($key);
-    $translations[$this->getLocale($locale)] = $value;
+    $translations[$this->getTranslationLocale($locale)] = $value;
 
     $this->attributes[$key] = $this->asJson($translations);
 
@@ -148,7 +148,7 @@ trait HasTranslations
       return $this;
     }
 
-    unset($translations[$this->getLocale($locale)]);
+    unset($translations[$this->getTranslationLocale($locale)]);
 
     $this->attributes[$key] = $this->asJson($translations);
 
