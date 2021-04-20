@@ -18,12 +18,11 @@
     }
   ],
   "require": {
-    "php": "^7.4|^8.0",
-    "illuminate/database": "^6.0|^7.0|^8.0",
-    "illuminate/support": "^6.0|^7.0|^8.0",
+    "php": "^8.0",
+    "illuminate/database": "^8.0",
+    "illuminate/support": "^8.0",
     "ramsey/uuid": "^4.0",
-    "spatie/laravel-schemaless-attributes": "^1.7",
-    "symfony/options-resolver": "^5.0"
+    "spatie/laravel-schemaless-attributes": "^2.0"
   },
   "require-dev": {
     "mockery/mockery": "^1.3",

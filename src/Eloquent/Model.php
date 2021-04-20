@@ -9,12 +9,11 @@ use Illuminate\Database\Eloquent\Model as BaseModel;
 use Bifrost\Database\Eloquent\Concerns\HasSchemaless;
 use Bifrost\Database\Eloquent\Concerns\HasEncryption;
 use Bifrost\Database\Eloquent\Concerns\HasTranslations;
-use Bifrost\Database\Eloquent\Concerns\HasAttributesResolver;
 
 class Model extends BaseModel
 {
 
-  use HasHashes, HasEncryption, HasSchemaless, HasTranslations, HasStates, HasAttributesResolver;
+  use HasHashes, HasEncryption, HasSchemaless, HasTranslations, HasStates;
 
   /**
    * Indicates when model key is UUID.
@@ -43,7 +42,6 @@ class Model extends BaseModel
   public function __construct(array $attributes = [])
   {
     $this->handlePrimaryKeyType();
-    $this->handleAttributesOptionsResolver();
 
     parent::__construct($attributes);
   }
@@ -54,8 +52,6 @@ class Model extends BaseModel
   protected static function boot(): void
   {
     parent::boot();
-
-    static::bootAttributesMap();
   }
 
   /**
