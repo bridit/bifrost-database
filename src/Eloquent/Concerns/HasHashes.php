@@ -15,7 +15,7 @@ trait HasHashes
    */
   protected function hasHashingBehaviour(string $key): bool
   {
-    return in_array($key, $this->hashed ?? []) && array_key_exists($key, $this->attributes);
+    return in_array($key, $this->hashedAttributes ?? []) && array_key_exists($key, $this->attributes);
   }
 
   /**

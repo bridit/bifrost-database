@@ -15,7 +15,7 @@ trait HasEncryption
    */
   protected function hasEncryptionBehaviour(string $key): bool
   {
-    return in_array($key, $this->encrypted ?? []) && array_key_exists($key, $this->attributes);
+    return in_array($key, $this->encryptedAttributes ?? []) && array_key_exists($key, $this->attributes);
   }
 
   /**
